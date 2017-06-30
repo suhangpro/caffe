@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         git \
         ca-certificates \
         wget \
+        rsync \
         libgtk2.0-0 \
         libatlas-base-dev \
         libboost-all-dev \

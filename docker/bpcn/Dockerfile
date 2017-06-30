@@ -40,16 +40,9 @@ RUN $CONDA update --yes conda && \
     $CONDA install -n caffe -y cython scikit-image matplotlib bokeh ipython h5py nose pandas pyyaml jupyter
 
 RUN git clone -b ${CLONE_TAG} --depth 1 https://github.com/BVLC/caffe.git . && \
-    git clone --depth 1 https://github.com/MPI-IS/bilateralNN.git bnn && \
-    cp -R bnn/bilateralnn_code/examples/* examples/ && \
-    cp bnn/bilateralnn_code/include/caffe/layers/* include/caffe/layers/ && \
-    cp bnn/bilateralnn_code/include/caffe/util/* include/caffe/util/ && \
-    cp bnn/bilateralnn_code/include/caffe/common.cuh include/caffe/ && \
-    cp bnn/bilateralnn_code/src/caffe/layers/* src/caffe/layers/ && \
-    cp bnn/bilateralnn_code/src/caffe/test/* src/caffe/test/ && \
-    cp bnn/bilateralnn_code/src/caffe/util/* src/caffe/util/ && \
-    wget https://www.dropbox.com/s/12nxm4t6fftsfzn/caffe.proto.caffe1_w_bnn -O src/caffe/proto/caffe.proto && \
-    rm -rf bnn
+    git clone --depth 1 https://github.com/suhangpro/caffe.git caffe-patch && \
+    rsync -av caffe-patch/bpcn/ ./ && \
+    rm -rf caffe-patch
 
 RUN /bin/bash -c "source /opt/conda/bin/activate caffe && mkdir build && cd build && \
     cmake -DUSE_CUDNN=1 -DUSE_NCCL=1 -Dpython_version=3 .. && \

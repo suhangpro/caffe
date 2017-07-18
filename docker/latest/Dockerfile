@@ -7,6 +7,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         git \
         ca-certificates \
         wget \
+        rsync \
+        vim \
         libgtk2.0-0 \
         libatlas-base-dev \
         libboost-all-dev \
@@ -38,7 +40,7 @@ ENV CONDA=/opt/conda/bin/conda
 RUN $CONDA update --yes conda && \
     $CONDA create -n caffe -y python=3.5 && \
     $CONDA install -n caffe -c menpo -y opencv3 && \
-    $CONDA install -n caffe -y cython scikit-image matplotlib bokeh ipython h5py nose pandas pyyaml jupyter
+    $CONDA install -n caffe -y cython scikit-image scikit-learn matplotlib bokeh ipython h5py nose pandas pyyaml jupyter
 
 RUN /bin/bash -c "git clone -b ${CLONE_TAG} --depth 1 https://github.com/BVLC/caffe.git . && \
     source /opt/conda/bin/activate caffe && mkdir build && cd build && \

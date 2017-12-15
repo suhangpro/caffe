@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         wget \
         rsync \
         vim \
+        libgl1-mesa-glx \
         libgtk2.0-0 \
         libatlas-base-dev \
         libboost-all-dev \

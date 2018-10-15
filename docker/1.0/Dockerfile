@@ -41,8 +41,9 @@ RUN $CONDA update --yes conda && \
     $CONDA install -n caffe -c menpo -y opencv3 && \
     $CONDA install -n caffe -y cython scikit-image scikit-learn matplotlib bokeh ipython h5py nose pandas pyyaml jupyter
 
-RUN /bin/bash -c "git clone -b ${CLONE_TAG} --depth 1 https://github.com/BVLC/caffe.git . && \
-    source /opt/conda/bin/activate caffe && mkdir build && cd build && \
+RUN git clone -b ${CLONE_TAG} --depth 1 https://github.com/BVLC/caffe.git . 
+
+RUN /bin/bash -c "source /opt/conda/bin/activate caffe && mkdir build && cd build && \
     cmake -DUSE_CUDNN=1 -Dpython_version=3 .. && \
     make -j$(nproc)"
 
